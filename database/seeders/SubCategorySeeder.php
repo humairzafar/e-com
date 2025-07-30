@@ -16,21 +16,24 @@ class SubCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::all();
+        $users = User::all();
 
-        //make 100 subcategories for each category
-        $category = Category::all();
-        foreach ($user as $user) {
-            foreach ($category as $category) {
-                for ($i = 0; $i < 100; $i++) {
-                    $name = fake()->unique()->name();
-                    $slug = Str::slug($name . $category->id . $i);
+        foreach ($users as $user) {
+            // Get only THIS USER'S categories
+            $categories = Category::where('user_id', $user->id)->get();
+
+            foreach ($categories as $category) {
+                // Create 10 unique subcategories for THIS category
+                for ($i = 0; $i < 10; $i++) {
+                    $name = fake()->words(2, true) . " " . ($i + 1); // e.g. "Electronics 1"
+                    $slug = Str::slug($name . '-' . $user->id);
+
                     SubCategory::create([
                         'name' => $name,
                         'slug' => $slug,
                         'category_id' => $category->id,
-                        'user_id' => $user->id,
-                        'is_active' => fake()->boolean(),
+                        'user_id' => $user->id,  // Ensure subcategory belongs to user
+                        'is_active' => true,
                     ]);
                 }
             }

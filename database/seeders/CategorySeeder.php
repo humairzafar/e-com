@@ -16,10 +16,9 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $user = User::all();
-
         //make 1000 categories for each user with faker library
         foreach ($user as $user) {
-            for ($i = 0; $i < 1000; $i++) {
+            for ($i = 0; $i < 10; $i++) {
                 Category::create([
                     'name' => fake()->name(),
                     'slug' => Str::slug(fake()->name()),

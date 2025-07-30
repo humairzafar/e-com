@@ -16,22 +16,30 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::all();
-        $category = Category::all();
-        $subCategory = SubCategory::all();
-        foreach ($user as $user) {
-            foreach ($category as $category) {
-                foreach ($subCategory as $subCategory) {
-                    for ($i = 0; $i < 100; $i++) {
-                    Product::create([
-                        'name' => fake()->name(),
-                        'sku' => fake()->unique()->numberBetween(100000, 999999),
-                        'price' => fake()->randomFloat(2, 10, 1000),
-                        'description' => fake()->paragraph(),
-                        'category_id' => $category->id,
-                        'sub_category_id' => $subCategory->id,
-                        'user_id' => $user->id,
-                        'is_active' => 1,
+        $users = User::all();
+
+        foreach ($users as $user) {
+            // Get categories for this specific user
+            $categories = Category::where('user_id', $user->id)->get();
+
+            foreach ($categories as $category) {
+                // Get subcategories for this specific user and category
+                $subCategories = SubCategory::where('user_id', $user->id)
+                                        ->where('category_id', $category->id)
+                                        ->get();
+
+                foreach ($subCategories as $subCategory) {
+                    // Create exactly 10 products for each subcategory
+                    for ($i = 0; $i < 10; $i++) {
+                        Product::create([
+                            'name' => fake()->words(3, true),
+                            'sku' => fake()->unique()->numberBetween(100000, 999999),
+                            'price' => fake()->randomFloat(2, 10, 1000),
+                            'description' => fake()->paragraph(),
+                            'category_id' => $category->id,
+                            'sub_category_id' => $subCategory->id,
+                            'user_id' => $user->id,
+                            'is_active' => 1,
                         ]);
                     }
                 }

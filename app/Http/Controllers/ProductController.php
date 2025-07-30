@@ -12,8 +12,6 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::where('user_id',auth()->user()->id)->with(['category', 'subCategory'])->latest('created_at')->get();
-        // dd($products[0]);
-
         return view('e-com.products.index', compact('products'));
     }
 

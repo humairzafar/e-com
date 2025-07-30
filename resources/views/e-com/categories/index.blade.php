@@ -52,7 +52,7 @@
 <!--modal starts here-->
 
 <!--modal starts here-->
-<div id="js-add-category-modal" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+<div id="js-add-category-modal" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none; z-index: 9999;">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 overflow-hidden">
             <div class="modal-header p-3">
@@ -93,6 +93,26 @@
 
 @endsection
 
+@section('styles')
+<style>
+.modal {
+    z-index: 1055 !important;
+}
+.modal-backdrop {
+    z-index: 1050 !important;
+}
+.modal-dialog-centered {
+    display: flex !important;
+    align-items: center !important;
+    min-height: calc(100% - 1rem) !important;
+}
+@media (min-width: 576px) {
+    .modal-dialog-centered {
+        min-height: calc(100% - 3.5rem) !important;
+    }
+}
+</style>
+@endsection
 
 @section('scripts')
 <script>
