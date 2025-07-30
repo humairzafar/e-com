@@ -3,7 +3,28 @@
 
 
 <!-- Mirrored from themesbrand.com/velzon/html/master/auth-signin-basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 27 Feb 2025 08:00:49 GMT -->
-@include('layout.partials.head')
+<head>
+
+    <meta charset="utf-8" />
+    <title>Sign In | Velzon - Admin & Dashboard Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
+
+    <!-- Layout config Js -->
+    <script src="{{asset('assets/js/layout.js')}}"></script>
+    <!-- Bootstrap Css -->
+    <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="{{asset('assets/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
+
+</head>
 
 <body>
 
@@ -26,8 +47,8 @@
                     <div class="col-lg-12">
                         <div class="text-center mt-sm-5 mb-4 text-white-50">
                             <div>
-                                <a href="index.html" class="d-inline-block auth-logo">
-                                    <img src="assets/images/logo-light.png" alt="" height="20">
+                                <a href="{{route('home')}}" class="d-inline-block auth-logo">
+                                    <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="20">
                                 </a>
                             </div>
                             <p class="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p>
@@ -46,26 +67,26 @@
                                     <p class="text-muted">Sign in to continue to Velzon.</p>
                                 </div>
                                 <div class="p-2 mt-4">
-                                    <form method="POST" action="{{ route('login.submit') }}">
+                                    <form action="{{ route('login.action')}}" method="POST">
                                         @csrf
                                         <div class="mb-3">
-                                            <label for="email" class="form-label">Username</label>
-                                            <input type="email" name="email" class="form-control" id="email" placeholder="Enter Email">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="username" placeholder="Enter email" name="email" required>
                                         </div>
 
                                         <div class="mb-3">
                                             <div class="float-end">
-                                                <a href="auth-pass-reset-basic.html" class="text-muted">Forgot password?</a>
+                                                <a href="{{ route('forgot.password')}}" class="text-muted">Forgot password?</a>
                                             </div>
                                             <label class="form-label" for="password-input">Password</label>
                                             <div class="position-relative auth-pass-inputgroup mb-3">
-                                                <input type="password" class="form-control pe-5 password-input" name="password" placeholder="Enter password" id="password-input">
+                                                <input type="password" class="form-control pe-5 password-input" placeholder="Enter password" id="password-input" name="password">
                                                 <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon material-shadow-none" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                             </div>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="auth-remember-check" name="remember_me">
                                             <label class="form-check-label" for="auth-remember-check">Remember me</label>
                                         </div>
 
@@ -104,25 +125,37 @@
         <!-- end auth page content -->
 
         <!-- footer -->
-       @include('layout.partials.footer')
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <p class="mb-0 text-muted">&copy;
+                                <script>document.write(new Date().getFullYear())</script> Velzon. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
         <!-- end Footer -->
     </div>
     <!-- end auth-page-wrapper -->
 
     <!-- JAVASCRIPT -->
-    <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/simplebar/simplebar.min.j')}}s"></script>
-    <script src="{{ asset('assets/libs/node-waves/waves.min.js')}}"></script>
-    <script src="{{ asset('assets/libs/feather-icons/feather.min.js')}}"></script>
-    <script src="{{ asset('assets/js/pages/plugins/lord-icon-2.1.0.js')}}"></script>
-    <script src="{{ asset('assets/js/plugins.js')}}"></script>
+    <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
+    <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>
+    <script src="{{asset('assets/libs/feather-icons/feather.min.js')}}"></script>
+    <script src="{{asset('assets/js/pages/plugins/lord-icon-2.1.0.js')}}"></script>
+    <script src="{{asset('assets/js/plugins.js')}}"></script>
 
     <!-- particles js -->
-    <script src="assets/libs/particles.js/particles.js"></script>
+    <script src="{{asset('assets/libs/particles.js/particles.js')}}"></script>
     <!-- particles app js -->
-    <script src="assets/js/pages/particles.app.js"></script>
+    <script src="{{asset('assets/js/pages/particles.app.js')}}"></script>
     <!-- password-addon init -->
-    <script src="assets/js/pages/password-addon.init.js"></script>
+    <script src="{{asset('assets/js/pages/password-addon.init.js')}}"></script>
 </body>
 
 

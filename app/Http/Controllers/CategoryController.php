@@ -1,45 +1,76 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Category;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function select ()
+    public function index()
     {
-        $categories = Category::all();
-        return view('category.index' , compact ('categories'));
+        $categories = Category::where('user_id',auth()->user()->id)->with('subCategories')->latest('created_at')->get();
+
+        return view('e-com.categories.index', compact('categories'));
     }
-    public function store (Request $request)
+
+    public function store(Request $request)
     {
-        $request->validate([
-        'name' => 'required|string|max:255',
-        'slug' => 'required|string|unique:categories,slug',
-         ]);
-        Category::create([
-            'name' => $request->name,
-            'slug' => $request->slug,
-        ]);
-        return $this->getLatestCategory();
-    }
-    private function getLatestCategory()
-    {
-        return response()->json([
-            'success' => true,
-            'message' => 'Record Save Successfully',
-            'html' => view('category.data-table', ['categories' => Category::all()])->render(),
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name',
+            'is_active' => 'required|boolean',
+            'slug' => 'required|string|max:255|unique:categories,slug',
         ]);
 
+        $validated['user_id']= auth()->user()->id;
+
+        Category::create($validated);
+
+        return $this->getLatestRecords('Category created successfully');
     }
-    public function editCategory (Request $request)
+
+    public function edit(Request $request)
     {
-        $id =$request->id;
-        $category = Category::find($id);
-        if(!empty($category))
-            {
-                return response()->json($category);
-            }
+        $request->validate(['id' => 'required|exists:categories,id']);
+        $category = Category::findOrFail($request->id);
+
+        return response()->json($category);
     }
+
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'id' => 'required|exists:categories,id',
+            'name' => 'required|string|max:255|unique:categories,name,'.$request->id,
+            'is_active' => 'required|boolean',
+            'slug' => 'required|string|max:255|unique:categories,slug,'.$request->id,
+        ]);
+
+        $category = Category::findOrFail($request->id);
+        $category->update($validated);
+
+        return $this->getLatestRecords('Category updated successfully');
+    }
+
+    public function destroy(Request $request)
+    {
+        $request->validate(['id' => 'required|exists:categories,id']);
+        $category = Category::findOrFail($request->id);
+        $category->delete();
+
+        return $this->getLatestRecords('Category deleted successfully');
+    }
+
+    private function getLatestRecords($message = 'Categories fetched successfully')
+    {
+        $categories = Category::where('user_id', auth()->user()->id)->latest('created_at')->get();
+
+        return response()->json([
+            'success' => true,
+            'html' => view('e-com.categories.data-table', compact('categories'))->render(),
+            'message' => $message,
+        ]);
+    }
+
+
 }

@@ -1,29 +1,54 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
-
+use App\Http\Controllers\DropdownController;
+use App\Http\Controllers\SubCategoryController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
+})->middleware('auth')->name('home');
+
+Route::controller(CategoryController::class)
+    ->prefix('categories')
+    ->middleware('auth')
+    ->name('categories.')
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::post('/edit', 'edit')->name('edit'); // Changed to POST
+        Route::post('/update', 'update')->name('update'); // Changed to POST
+        Route::post('/delete', 'destroy')->name('destroy'); // Changed to POST
+    });
+
+Route::controller(SubCategoryController::class)->prefix('sub-categories')->middleware('auth')->name('sub-categories.')->group(function () {
+    Route::get('/', 'index')->name('index');
+});
+Route::controller(SubCategoryController::class)->prefix('sub-categories')->middleware('auth')->name('sub-categories.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::post('/edit', 'edit')->name('edit'); // Changed to POST
+        Route::post('/update', 'update')->name('update'); // Changed to POST
+        Route::post('/delete', 'destroy')->name('destroy'); // Changed to POST
+    });
+
+
+Route::controller(ProductController::class)->prefix('products')->middleware('auth')->name('products.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
+    Route::post('update', 'update')->name('update');
+    Route::get('edit/{id}', 'edit')->name('edit');
+    Route::post('delete', 'destroy')->name('destroy');
+    Route::get('export','export')->name('export');
+
+});
+
+Route::controller(DropdownController::class)->prefix('dropdown')->middleware('auth')->name('dropdown.')->group(function () {
+    Route::get('/categories', 'getAllCategories')->name('categories');
+    Route::get('/sub-categories', 'getAllSubCategories')->name('sub-categories');
 });
 
 
-
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/category', [CategoryController::class, 'select'])->name('select');
-Route::post('/category', [CategoryController::class, 'store'])->name('store');
-Route::post('/category/edit', [CategoryController::class, 'editCategory']);
-
-
-Route::get('/home', function () {
-    return view('home');
-})->middleware('auth');
-
-Route::get('/contact', function(){
-    return view('contact');
-});
+require __DIR__.'/auth.php';
 

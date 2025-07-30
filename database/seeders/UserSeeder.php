@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+
 class UserSeeder extends Seeder
 {
     /**
@@ -14,13 +15,43 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::truncate();
+        $users = [
+            [
+                'email' => 'ali@velzon.com',
+                'name' => 'Ali Hassan',
+                'password' => 'vision',
+            ],
 
-        User::create([
-            'name' => 'humairzafar',
-            'email' => 'maidy12345@example.com',
-            'password' => Hash::make('password123'),
-        ]);
+            [
+                'name' => 'Admin User',
+                'email' => 'admin@velzon.com',
+                'password' => Hash::make('password'),
+            ],
+
+            [
+                'email' => 'm87683941@gmail.com',
+                'name' => 'web developer',
+                'password' => 'admin',
+            ],
+
+            [
+                'email' => 'ashfaq@velzon.com',
+                'name' => 'Ashfaq',
+                'password' => 'syntix',
+            ],
+            [
+                'email' => 'haider@velzon.com',
+                'name' => 'haider',
+                'password' => 'password123',
+            ],
+
+        ];
+
+        foreach ($users as $user) {
+            User::updateOrCreate(
+                ['email' => $user['email']], // Match by email
+                $user
+            );
+        }
     }
-
 }
