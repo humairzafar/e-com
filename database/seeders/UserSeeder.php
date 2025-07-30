@@ -17,39 +17,22 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                'email' => 'ali@velzon.com',
-                'name' => 'Ali Hassan',
-                'password' => 'vision',
-            ],
-
-            [
-                'name' => 'Admin User',
-                'email' => 'admin@velzon.com',
-                'password' => Hash::make('password'),
-            ],
-
-            [
-                'email' => 'm87683941@gmail.com',
-                'name' => 'web developer',
+                'email' => 'admin@gmail.com',
+                'name' => 'Admin',
                 'password' => 'admin',
             ],
 
             [
-                'email' => 'ashfaq@velzon.com',
-                'name' => 'Ashfaq',
-                'password' => 'syntix',
-            ],
-            [
-                'email' => 'haider@velzon.com',
-                'name' => 'haider',
-                'password' => 'password123',
+                'name' => 'User',
+                'email' => 'user@gmail.com',
+                'password' => Hash::make('user'),
             ],
 
         ];
 
         foreach ($users as $user) {
             User::updateOrCreate(
-                ['email' => $user['email']], // Match by email
+                ['email' => $user['email']],
                 $user
             );
         }
