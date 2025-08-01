@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::where('user_id',auth()->user()->id)->with('subCategories')->latest('created_at')->get();
+        $categories = Category::where('user_id', auth()->user()->id )->latest('created_at')->get();
 
         return view('e-com.categories.index', compact('categories'));
     }

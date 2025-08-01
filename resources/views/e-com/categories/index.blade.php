@@ -169,6 +169,7 @@
                 id: recordId
             },
             success: function(response) {
+
                 $('#modal-title').text('Edit Category');
                 $('#js-category-id').val(response.id);
                 $('#category-name').val(response.name);

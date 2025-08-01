@@ -67,7 +67,7 @@
                                     <p class="text-muted">Sign in to continue to Velzon.</p>
                                 </div>
                                 <div class="p-2 mt-4">
-                                    <form action="{{ route('login.action')}}" method="POST">
+                                    <form action="{{ route('login.action') }}" method="POST">
                                         @csrf
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
