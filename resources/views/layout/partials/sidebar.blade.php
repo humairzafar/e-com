@@ -69,6 +69,15 @@
                                             <a href="dashboard-crm.html" class="nav-link" data-key="t-crm"> CRM </a>
                                         </li>
                                         <li class="nav-item">
+                                            <a href="{{ route('department.index') }}" class="nav-link" data-key="t-crm"> Departments</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('designation.index') }}" class="nav-link" data-key="t-crm"> Designation</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('employee.index') }}" class="nav-link" data-key="t-crm"> Employees</a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a href="index.html" class="nav-link" data-key="t-ecommerce"> Ecommerce </a>
                                         </li>
                                         <li class="nav-item">

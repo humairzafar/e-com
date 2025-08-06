@@ -46,6 +46,7 @@
         padding-inline-start: 10px;
     }
 
+
     .dt-layout-row{
         overflow-x: auto; /* Enables horizontal scrollbar when needed */
   white-space: nowrap; /* Prevents content from wrapping (optional) */

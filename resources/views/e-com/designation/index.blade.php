@@ -1,27 +1,19 @@
 @extends('layout.app');
 @section('content')
-<style>
-     #js-add-category-modal
-    {
-        position: absolute !important;
-        top: 0px;
-    }
-    </style>
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header" id="abc" >
-                <h3 class="card-title mb-0">Categories</h3>
+                <h3 class="card-title mb-0">Designation</h3>
 
-                    <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#js-add-category-modal">Add Category</button>
+                    <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#js-add-designation-modal">Add designation</button>
             </div>
 
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-12">
-
                             <div class="card-body">
-                                <table id="js-categories-datatables" class="table nowrap align-middle" style="width:100%">
+                                <table id="js-designation-datatables" class="table nowrap align-middle" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th scope="col" style="width: 10px;">
@@ -31,15 +23,13 @@
                                             </th>
                                             <th>#</th>
                                             <th>Name</th>
-                                            <th>Slug</th>
-                                            <th>Status</th>
-                                            <th>Created At</th>
-                                            <th>Updated At</th>
+                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
-                                        <tbody id="js-categories-datatables-body">
-                                            @include('e-com.categories.data-table')
+                                        <tbody id="js-designation-datatables-body">
+                                            @include('e-com.designation.data-table')
+
                                     </tbody>
                                 </table>
                             </div>
@@ -50,38 +40,25 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-<!--modal starts here-->
-
-<!--modal starts here-->
-<div id="js-add-category-modal" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none; z-index: 9999;">
+<div id="js-add-designation-modal" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none; z-index: 9999;">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 overflow-hidden">
             <div class="modal-header p-3">
-                <h4 class="card-title mb-0" id="modal-title">Add Category</h4>
+                <h4 class="card-title mb-0" id="modal-title">Add designation</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
-                <form id="category-form">
+                <form id="designation-form">
                     @csrf
-                    <input type="hidden" name="id" id="js-category-id">
+                    <input type="hidden" name="id" id="js-designation-id">
                     <div class="mb-3">
-                        <label for="category-name" class="form-label">Name</label>
-                        <input type="text" name="name" class="form-control" id="category-name" placeholder="Enter category name">
+                        <label for="designation-name" class="form-label">Name</label>
+                        <input type="text" name="name" class="form-control" id="designation-name" placeholder="Enter designation name">
                     </div>
                     <div class="mb-3">
-                        <label for="category-slug" class="form-label">Slug</label>
-                        <input type="text" name="slug" class="form-control" id="category-slug" placeholder="Category slug" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="category-status" class="form-label">Status</label>
-                        <select class="form-control" name="is_active" id="category-status">
+                        <label for="designation-status" class="form-label">Status</label>
+                        <select class="form-control" name="is_active" id="designation-status">
                             <option value="" disabled selected>Select Status</option>
                             <option value="1">Active</option>
                             <option value="0">Inactive</option>
@@ -95,12 +72,9 @@
         </div>
     </div>
 </div>
-<!--modal ends here-->
-<!--modal ends here-->
-
 @endsection
-
 @section('styles')
+
 <style>
 .modal {
     z-index: 1055 !important;
@@ -113,6 +87,11 @@
     align-items: center !important;
     min-height: calc(100% - 1rem) !important;
 }
+#js-add-designation-modal
+{
+    position: absolute;
+    top: 0px;
+}
 @media (min-width: 576px) {
     .modal-dialog-centered {
         min-height: calc(100% - 3.5rem) !important;
@@ -122,23 +101,23 @@
 @endsection
 
 @section('scripts')
+
 <script>
   $(document).ready(function() {
     // Initialize DataTable
-    $('#js-categories-datatables').DataTable();
+    $('#js-designation-datatables').DataTable();
 
     // Handle form submission for both add starts here
-    $('#category-form').on('submit', function(e) {
+    $('#designation-form').on('submit', function(e) {
         e.preventDefault();
-
         // Check if the form is valid using jQuery validator
-        if (!$('#category-form').valid()) {
-            return false;
-        }
+        // if (!$('#designation-form').valid()) {
+        //     return false;
+        // }
 
         const formData = $(this).serialize();
-        const isUpdate = $('#js-category-id').val() !== '';
-        const url = isUpdate ? "{{ route('categories.update') }}" : "{{ route('categories.store') }}";
+        const isUpdate = $('#js-designation-id').val() !== '';
+        const url = isUpdate ? "{{ route('designation.update') }}" : "{{ route('designation.store') }}";
 
         $.ajax({
             url: url,
@@ -148,10 +127,12 @@
                 $('#form-submit-btn').prop('disabled', true);
             },
             success: function(response) {
-                $('#js-add-category-modal').modal('hide');
-                $('#category-form')[0].reset();
-                $('#js-category-id').val('');
-                $('#js-categories-datatables-body').html(response.html);
+
+                console.log(response)
+                $('#js-add-designation-modal').modal('hide');
+                $('#designation-form')[0].reset();
+                $('#designation-id').val('');
+                $('#js-designation-datatables-body').html(response.html);
                 Swal.fire('Success', response.message, 'success');
             },
             error: function(xhr) {
@@ -162,36 +143,46 @@
             }
         });
     });
-    // Handle form submission for both add ends here
-    // Edit category
+    $('#js-add-designation-modal').on('hidden.bs.modal', function() {
+        $('#modal-title').text('Add designation');
+        $('#form-submit-btn').text('Add');
+        $('#designation-form')[0].reset();
+        $('#js-designation-id').val('');
+        // 3. Reset validation state
+        const validator = $('#designation-form').validate();
+        validator.resetForm();
+
+        // 4. Remove error classes from inputs
+        $('#designation-form').find('.is-invalid').removeClass('is-invalid');
+
+    });
     $(document).on('click', '.edit-item-btn', function(e) {
         e.preventDefault();
         const recordId = $(this).data('record-id');
+       console.log(recordId);
 
         $.ajax({
-            url: "{{ route('categories.edit') }}",
+            url: "{{ route('designation.edit') }}",
             method: 'POST',
             data: {
                 _token: "{{ csrf_token() }}",
                 id: recordId
             },
             success: function(response) {
-
-                $('#modal-title').text('Edit Category');
-                $('#js-category-id').val(response.id);
-                $('#category-name').val(response.name);
-                $('#category-slug').val(response.slug);
-                $('#category-status').val(response.is_active);
+                $('#modal-title').text('Edit designation');
+                $('#js-designation-id').val(response.id);
+                $('#designation-name').val(response.name);
+                $('#designation-status').val(response.is_active);
                 $('#form-submit-btn').text('Update');
-                $('#js-add-category-modal').modal('show');
+                $('#js-add-designation-modal').modal('show');
             },
             error: function(xhr) {
-                Swal.fire('Error', 'Failed to load category data', 'error');
+                Swal.fire('Error', 'Failed to load designation data', 'error');
             }
         });
     });
 
-    // Delete category
+    // Delete deaprtment
     $(document).on('click', '.remove-item-btn', function(e) {
         e.preventDefault();
         const recordId = $(this).data('record-id');
@@ -207,80 +198,42 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "{{ route('categories.destroy') }}",
+                    url: "{{ route('designation.destroy') }}",
                     method: 'POST',
                     data: {
                         _token: "{{ csrf_token() }}",
                         id: recordId
                     },
                     success: function(response) {
-                        $('#js-categories-datatables-body').html(response.html);
+                        if(response.success)
+                        {
+                            $('#js-designation-datatables-body').html();
+                            $('#js-designation-datatables-body').html(response.html);
                         Swal.fire('Deleted!', response.message, 'success');
+                        }
+
                     },
                     error: function(xhr) {
-                        Swal.fire('Error', 'Failed to delete category', 'error');
+                        Swal.fire('Error', 'Failed to delete designation', 'error');
                     }
                 });
             }
         });
     });
 
-    // Reset modal when closed
-    $('#js-add-category-modal').on('hidden.bs.modal', function() {
-        $('#modal-title').text('Add Category');
+    $('#js-add-designation-modal').on('hidden.bs.modal', function() {
+        $('#modal-title').text('Add designation');
         $('#form-submit-btn').text('Add');
-        $('#category-form')[0].reset();
-        $('#js-category-id').val('');
+        $('#designation-form')[0].reset();
+        $('#js-designation-id').val('');
         // 3. Reset validation state
-        const validator = $('#category-form').validate();
+        const validator = $('#designation-form').validate();
         validator.resetForm();
 
         // 4. Remove error classes from inputs
-        $('#category-form').find('.is-invalid').removeClass('is-invalid');
+        $('#designation-form').find('.is-invalid').removeClass('is-invalid');
 
-    });
-
-    // Auto-generate slug when name changes
-    $('#category-name').on('input', function() {
-        const name = $(this).val();
-        $('#category-slug').val(name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''));
-    });
-
-    $('#category-form').validate({
-        rules: {
-            name: {
-                required: true,
-                minlength: 3
-            },
-            slug: {
-                required: true,
-                minlength: 3
-            },
-            is_active: {
-                required: true,
-            }
-        },
-        // hightlight:function(element){
-        //     $(element).addClass('red-border');
-        // },
-        // unhighlight:function(element){
-        //     $(element).removeClass('red-border');
-        // },
-        messages: {
-            name: {
-                required: "Name is required",
-                minlength: "Name must be at least 3 characters long"
-            },
-            slug: {
-                required: "Slug is required",
-                minlength: "Slug must be at least 3 characters long"
-            },
-            is_active: {
-                required: "Status is required",
-            }
-        }
     });
 });
-
 </script>
 @endsection

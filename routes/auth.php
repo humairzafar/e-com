@@ -14,6 +14,9 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('profile', 'profile')->middleware('auth')->name('profile');
     Route::post('profile/update', 'updateProfile')->middleware('auth')->name('profile.update');
     Route::post('profile/change-password', 'changePassword')->middleware('auth')->name('profile.change-password');
+    Route::get('/register', 'register')->name('auth.register');
+    Route::post('/register', 'registerAction')->name('signup.action');
+
 });
 
 Route::get('forgot-password', [ForgotPasswordController::class, 'forgotPassword'])->name('forgot.password');

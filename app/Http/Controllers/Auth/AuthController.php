@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -51,8 +52,8 @@ class AuthController extends Controller
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email,'.Auth::user()->id,
             'phone_number' => 'required|string',
-            'joining_date' => 'sometimes|date',
-            'bio' => 'sometimes|string',
+            // 'joining_date' => 'sometimes|date',
+            // 'bio' => 'sometimes|string',
         ]);
 
         $user = Auth::user();
@@ -62,8 +63,8 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone_number = $request->phone_number;
-        $user->joining_date = $request->joining_date;
-        $user->bio = $request->bio;
+        // $user->joining_date = $request->joining_date;
+        // $user->bio = $request->bio;
         $user->save();
 
         return response()->json(['success' => true, 'message' => 'Profile updated successfully']);
@@ -80,5 +81,23 @@ class AuthController extends Controller
         $user->save();
 
         return response()->json(['success' => true, 'message' => 'Password updated successfully']);
+    }
+    public function register()
+    {
+        return view('auth.register');
+    }
+    public function registerAction(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,',
+             'password' => ['required', 'min:8', 'confirmed'],
+            ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
     }
 }

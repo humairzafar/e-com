@@ -4,4 +4,9 @@
 /* .red-border{
     border: 2px solid red;
 } */
+ #js-add-category-modal
+ {
+    position:absolute;
+    top:300px;
+ }
 
