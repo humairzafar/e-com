@@ -25,7 +25,11 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
-            Auth::user();
+            $user = Auth::user();
+            if ($user->is_active == 0) {
+                Auth::logout();
+                return back()->withErrors('Your account is not active, please contact the admin');
+            }
 
             return redirect()->route('home');
         }
@@ -100,12 +104,7 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-
         SendEmailJob::dispatch($request->email);
-
-
-
-
-
+        return redirect()->route('login')->with('success', 'Please check your email for activation');
     }
 }
