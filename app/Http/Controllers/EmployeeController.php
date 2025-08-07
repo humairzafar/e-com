@@ -26,23 +26,21 @@ class EmployeeController extends Controller
             'doj' => 'required|date|max:255|',
             'department_id' => 'required|exists:departments,id',
             'designation_id' => 'required|exists:designations,id',
-            'image' => 'nullable|string|max:255|',
+            'image' => 'nullable|image',
             'is_active' => 'required|boolean',
         ]);
-        if($request->has('image'))
+
+        if($request->hasFile('image'))
         {
             $file=$request->file('image');
             $extension=$file->getClientOriginalExtension();
             $filename= time(). '.'.$extension;
             $path='upload/images/';
-            $file->move($path,$filename);
+            $file->move(public_path($path), $filename);
+            $validated['image'] = $path . $filename;
         }
 
-        $validated['user_id'] = auth()->id();
-
-        Employee::create([
-            'image' => $path.$filename,
-            $validated]);
+        Employee::create($validated);
         return $this->getLatestRecords('Employee Added successfully');
     }
     public function edit(Request $request)
@@ -67,8 +65,18 @@ class EmployeeController extends Controller
             'doj' => 'required|date|max:255|',
             'department_id' => 'required|exists:departments,id',
             'designation_id' => 'required|exists:designations,id',
+            'image' => 'nullable|image',
             'is_active' => 'required|boolean',
         ]);
+        if($request->hasFile('image'))
+        {
+            $file=$request->file('image');
+            $extension=$file->getClientOriginalExtension();
+            $filename= time(). '.'.$extension;
+            $path='upload/images/';
+            $file->move(public_path($path), $filename);
+            $validated['image'] = $path . $filename;
+        }
 
         $employees = Employee::findOrFail($request->id);
         $employees->update($validated);

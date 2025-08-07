@@ -62,14 +62,17 @@
                                 </a>
                                 <div class="collapse menu-dropdown" id="sidebarDashboards">
                                     <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
+                                        {{-- <li class="nav-item">
                                             <a href="dashboard-analytics.html" class="nav-link" data-key="t-analytics"> Analytics </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="dashboard-crm.html" class="nav-link" data-key="t-crm"> CRM </a>
-                                        </li>
+                                        </li> --}}
                                         <li class="nav-item">
                                             <a href="{{ route('department.index') }}" class="nav-link" data-key="t-crm"> Departments</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('categories.index') }}" class="nav-link" data-key="t-categories"> Categories </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ route('designation.index') }}" class="nav-link" data-key="t-crm"> Designation</a>
@@ -77,16 +80,16 @@
                                         <li class="nav-item">
                                             <a href="{{ route('employee.index') }}" class="nav-link" data-key="t-crm"> Employees</a>
                                         </li>
-                                        <li class="nav-item">
+                                        {{-- <li class="nav-item">
                                             <a href="index.html" class="nav-link" data-key="t-ecommerce"> Ecommerce </a>
-                                        </li>
-                                        <li class="nav-item">
+                                        </li> --}}
+                                        {{-- <li class="nav-item">
                                             <a href="dashboard-crypto.html" class="nav-link" data-key="t-crypto"> Crypto </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="dashboard-projects.html" class="nav-link" data-key="t-projects"> Projects </a>
-                                        </li>
-                                        <li class="nav-item">
+                                        </li> --}}
+                                        {{-- <li class="nav-item">
                                             <a href="dashboard-nft.html" class="nav-link" data-key="t-nft"> NFT</a>
                                         </li>
                                         <li class="nav-item">
@@ -94,7 +97,7 @@
                                         </li>
                                         <li class="nav-item">
                                             <a href="dashboard-blog.html" class="nav-link"><span data-key="t-blog">Blog</span> <span class="badge bg-success" data-key="t-new">New</span></a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </div>
                             </li> <!-- end Dashboard Menu -->
@@ -423,7 +426,7 @@
                                     </ul>
                                 </div>
                             </li> --}}
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
                                     <i class="ri-apps-2-line"></i> <span data-key="t-apps">Categories</span>
                                 </a>
@@ -710,9 +713,9 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link menu-link" href="#sidebarLayouts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
                                     <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Layouts</span> <span class="badge badge-pill bg-danger" data-key="t-hot">Hot</span>
                                 </a>
@@ -732,11 +735,11 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li> <!-- end Dashboard Menu -->
+                            </li> <!-- end Dashboard Menu --> --}}
 
-                            <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
+                            {{-- <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li> --}}
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
                                     <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Authentication</span>
                                 </a>
@@ -905,8 +908,8 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
-
+                            </li> --}}
+{{--
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="#sidebarPages" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarPages">
                                     <i class="ri-pages-line"></i> <span data-key="t-pages">Pages</span>
@@ -986,9 +989,9 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link menu-link" href="#sidebarLanding" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLanding">
                                     <i class="ri-rocket-line"></i> <span data-key="t-landing">Landing</span>
                                 </a>
@@ -1005,11 +1008,11 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
 
-                            <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-components">Components</span></li>
+                            {{-- <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-components">Components</span></li> --}}
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link menu-link" href="#sidebarUI" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarUI">
                                     <i class="ri-pencil-ruler-2-line"></i> <span data-key="t-base-ui">Base UI</span>
                                 </a>
@@ -1103,9 +1106,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li>
+                            </li> --}}
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link menu-link" href="#sidebarAdvanceUI" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAdvanceUI">
                                     <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Advance UI</span>
                                 </a>
@@ -1143,15 +1146,15 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link menu-link" href="widgets.html">
                                     <i class="ri-honour-line"></i> <span data-key="t-widgets">Widgets</span>
                                 </a>
-                            </li>
+                            </li> --}}
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link menu-link" href="#sidebarForms" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarForms">
                                     <i class="ri-file-list-3-line"></i> <span data-key="t-forms">Forms</span>
                                 </a>
@@ -1201,9 +1204,9 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link menu-link" href="#sidebarTables" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarTables">
                                     <i class="ri-layout-grid-line"></i> <span data-key="t-tables">Tables</span>
                                 </a>
@@ -1223,9 +1226,9 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link menu-link" href="#sidebarCharts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCharts">
                                     <i class="ri-pie-chart-line"></i> <span data-key="t-charts">Charts</span>
                                 </a>
@@ -1317,8 +1320,8 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
-
+                            </li> --}}
+{{--
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="#sidebarIcons" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarIcons">
                                     <i class="ri-compasses-2-line"></i> <span data-key="t-icons">Icons</span>
@@ -1345,8 +1348,8 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
-
+                            </li> --}}
+{{--
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="#sidebarMaps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMaps">
                                     <i class="ri-map-pin-line"></i> <span data-key="t-maps">Maps</span>
@@ -1370,9 +1373,9 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
 
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link menu-link" href="#sidebarMultilevel" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMultilevel">
                                     <i class="ri-share-line"></i> <span data-key="t-multi-level">Multi Level</span>
                                 </a>
@@ -1411,7 +1414,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
 
                         </ul>
                 </div>

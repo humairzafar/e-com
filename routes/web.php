@@ -8,11 +8,13 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\DepartmentController;
 Use App\Http\Controllers\DesignationController;
 Use App\Http\Controllers\EmployeeController;
+Use App\Http\Controllers\MailController;
+
 
 Route::get('/', function () {
     return view('dashboard');
 })->middleware('auth')->name('home');
-
+Route::get('send-mail', [MailController::class, 'index']);
 Route::controller(CategoryController::class)
     ->prefix('categories')
     ->middleware('auth')

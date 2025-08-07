@@ -6,6 +6,7 @@
         </div>
     </td>
     <td>{{ $loop->iteration }}</td>
+    <td><img src="{{ asset($emp->image) }}" width="100"></td>
     <td>{{ $emp->firstname }}</td>
     <td>{{ $emp->lastname }}</td>
     <td>{{ $emp->cnic }}</td>

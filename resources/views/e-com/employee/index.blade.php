@@ -22,6 +22,7 @@
                                                 </div>
                                             </th>
                                             <th>#</th>
+                                            <th>Image</th>
                                             <th>FirstName</th>
                                             <th>LastName</th>
                                             <th>CNIC</th>
@@ -55,7 +56,7 @@
             </div>
 
             <div class="modal-body">
-                <form id="employee-form" enctype="multipart/form-data">
+                <form method="POST" id="employee-form" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" id="js-employee-id">
                     <div class="mb-3">
@@ -68,7 +69,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="employee-cnic" class="form-label">CNIC</label>
-                        <input type="text" name="cnic" class="form-control" id="employee-cnic" placeholder="Enter cnic">
+                        <input type="number" maxlength="13" minlength="13" name="cnic" class="form-control" id="employee-cnic" placeholder="Enter cnic">
                     </div>
                     <div class="mb-3">
                         <label for="employee-dob" class="form-label">DOB</label>
@@ -163,7 +164,12 @@ th
             return false;
         }
 
-        const formData = $(this).serialize();
+        // const formData = $(this).serialize();
+
+        const form = $('#employee-form')[0];
+        const formData = new FormData(form);
+
+        console.log(formData);
         const isUpdate = $('#js-employee-id').val() !== '';
         const url = isUpdate ? "{{ route('employee.update') }}" : "{{ route('employee.store') }}";
 
@@ -171,11 +177,12 @@ th
             url: url,
             method: 'POST',
             data: formData,
+            processData: false,
+            contentType: false,
             beforeSend: function(xhr) {
                 $('#form-submit-btn').prop('disabled', true);
             },
             success: function(response) {
-
                 console.log(response)
                 $('#js-add-employee-modal').modal('hide');
                 $('#employee-form')[0].reset();
