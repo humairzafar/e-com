@@ -26,8 +26,8 @@ class SendEmailJob implements ShouldQueue
     public function handle(): void
     {
          Mail::raw('This is a plain text test email sent directly from a Laravel route.', function ($message) {
-                $message->to($this->email)
-                        ->subject('Direct Test Email');
+         $message->to($this->email)
+        ->subject('Direct Test Email');
             });
 
     }

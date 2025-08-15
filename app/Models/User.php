@@ -25,6 +25,8 @@ class User extends Authenticatable
         'phone_number',
         'joining_date',
         'bio',
+        'verification_token',
+        'is_active'
     ];
 
     /**

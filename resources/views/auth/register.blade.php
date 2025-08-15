@@ -79,11 +79,11 @@
                                         </div>
                                          <div class="mb-3">
                                             <label for="password" class="form-label">Password</label>
-                                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter User Email">
+                                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password">
                                         </div>
                                          <div class="mb-3">
                                             <label for="confirmpassword" class="form-label">Confirm Password</label>
-                                            <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Enter User Email">
+                                            <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Enter re-Password">
                                         </div>
 
                                         <div class="mt-4">

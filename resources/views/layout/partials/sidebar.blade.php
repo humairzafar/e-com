@@ -80,6 +80,22 @@
                                         <li class="nav-item">
                                             <a href="{{ route('employee.index') }}" class="nav-link" data-key="t-crm"> Employees</a>
                                         </li>
+                                         <li class="nav-item">
+                                            <a href="{{ route('locations.index') }}" class="nav-link" data-key="t-crm"> Locations</a>
+                                        </li>
+                                         <li class="nav-item">
+                                            <a href="{{ route('parts.index') }}" class="nav-link" data-key="t-crm"> Parts</a>
+                                        </li>
+                                         <li class="nav-item">
+                                            <a href="{{ route('vehicle.index') }}" class="nav-link" data-key="t-crm"> vehicles</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('VehiclesCategory.index') }}" class="nav-link" data-key="t-crm"> Vehicles Category</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('town.index') }}" class="nav-link" data-key="t-crm"> Towns</a>
+                                        </li>
+
                                         {{-- <li class="nav-item">
                                             <a href="index.html" class="nav-link" data-key="t-ecommerce"> Ecommerce </a>
                                         </li> --}}

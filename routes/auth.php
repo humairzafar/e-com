@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-
-
+use Illuminate\Support\Facades\Mail;
+use App\Models\User;
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('login', 'login')->name('login');
@@ -23,3 +23,8 @@ Route::get('forgot-password', [ForgotPasswordController::class, 'forgotPassword'
 Route::post('forgot-password', [ForgotPasswordController::class,'sendResetLink'])->name('send-rest-link');
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+Route::get('/verify/{token}', [AuthController::class, 'verifyEmail'])->name('verify.email');
+Route::get('/custom-verify/{id}', [AuthController::class, 'verifyemail'])->name('custom.verify');
+
+
+
