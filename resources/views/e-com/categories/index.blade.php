@@ -15,7 +15,15 @@
 
                     <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#js-add-category-modal">Add Category</button>
             </div>
-
+            <
+            <div class="card-header">"
+            <a href="{{ route('categories.exportCsv') }}" class="btn btn-success">Export Categories (CSV)</a>
+            <form action="{{ route('categories.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="file" required>
+                <button type="submit" class="btn btn-success">Import Categories</button>
+            </form>
+        </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-12">

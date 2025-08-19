@@ -72,5 +72,69 @@ class CategoryController extends Controller
         ]);
     }
 
+public function exportCsv()
+{
+
+    $filename = 'categories_' . now()->format('Y-m-d_H-i-s') . '.csv';
+    $headers = [
+        'Content-Type'        => 'text/csv; charset=UTF-8',
+        'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+        'Cache-Control'       => 'no-store, no-cache, must-revalidate',
+        'Pragma'              => 'no-cache',
+    ];
+    return response()->streamDownload(function () {
+        $out = fopen('php://output', 'w');
+        fprintf($out, chr(0xEF) . chr(0xBB) . chr(0xBF));
+        fputcsv($out, ['id', 'name', 'slug', 'is_active', 'user_id']);
+        Category::select('id', 'name', 'slug', 'is_active', 'user_id')
+            ->orderBy('id')
+            ->chunk(1000, function ($rows) use ($out) {
+                foreach ($rows as $row) {
+                    fputcsv($out, [
+                        $row->id,
+                        $row->name,
+                        $row->slug,
+                        $row->is_active ? 1 : 0,
+                        $row->user_id,
+                    ]);
+                }
+            });
+
+        fclose($out);
+    }, $filename, $headers);
+}
+public function import(Request $request)
+{
+    if ($request->hasFile('file')) {
+        $file = $request->file('file');
+        $data = array_map('str_getcsv', file($file->getRealPath()));
+
+        foreach ($data as $index => $row) {
+            if ($index === 0) {
+                continue;
+            }
+
+            $name     = $row[1] ?? null;
+            $slug     = $row[2] ?? null;
+            $isActive = $row[3] ?? 1;
+            $userId   = $row[4] ?? 1;
+
+            if (!$name || !$slug) continue;
+
+            \App\Models\Category::updateOrCreate(
+                ['slug' => $slug],
+                [
+                    'name'      => $name,
+                    'is_active' => (int)$isActive,
+                    'user_id'   => (int)$userId,
+                ]
+            );
+        }
+    }
+
+    return back()->with('success', 'Categories imported successfully!');
+}
+
+
 
 }

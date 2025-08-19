@@ -32,6 +32,10 @@ Route::controller(CategoryController::class)
         Route::post('/update', 'update')->name('update'); // Changed to POST
         Route::post('/delete', 'destroy')->name('destroy'); // Changed to POST
     });
+    Route::get('/categories/export-csv', [CategoryController::class, 'exportCsv'])
+    ->name('categories.exportCsv');
+    Route::post('/categories/import', [CategoryController::class, 'import'])->name('categories.import');
+
     Route::controller(DepartmentController::class)
     ->prefix('department')
     ->middleware('auth')
