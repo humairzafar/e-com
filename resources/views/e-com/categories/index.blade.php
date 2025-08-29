@@ -12,8 +12,9 @@
         <div class="card">
             <div class="card-header" id="abc" >
                 <h3 class="card-title mb-0">Categories</h3>
-
+                    @can('add-category')
                     <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#js-add-category-modal">Add Category</button>
+                    @endcan
             </div>
             <
             <div class="card-header">"

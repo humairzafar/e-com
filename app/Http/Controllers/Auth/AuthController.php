@@ -9,9 +9,95 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+// use Spatie\Permission\Contracts\Permission;
+// use Spatie\Permission\Contracts\Role;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class AuthController extends Controller
 {
+    public function  index()
+    {
+        $users = user::all();
+        $roles = Role::orderBy('name')->get();              // for role dropdowns
+        $permissions = Permission::orderBy('name')->get();
+        return view('e-com.users.index' , compact('users','roles','permissions'));
+
+    }
+      public function store(Request $request)
+    {
+
+        $validated=$request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|',
+            'is_active' => 'required|boolean',
+            'role_id' => 'required|exists:roles,id',
+        ]);
+
+        // ✅ Step 2: Create user
+        $user = User::create($validated);
+
+        // ✅ Step 3: Assign role
+         $role = Role::find($request->role_id);
+        if ($role) {
+        $user->assignRole($role);
+        } else {
+        return back()->withErrors('Selected role does not exist.');
+        }
+
+        // ✅ Step 4: Assign permissions (if any)
+        if ($request->has('permissions')) {
+            $user->syncPermissions($request->permissions);
+        }
+
+        return $this->getLatestRecords('User Add successfully');
+    }
+    public function edit($id)
+    {
+        $user = User::with('role', 'permissions')->findOrFail($id);
+
+        return response()->json([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'is_active' => $user->is_active,
+            'role_id' => $user->role_id,
+            'permissions' => $user->permissions->pluck('id')->toArray()
+        ]);
+        $request->validate([
+            'id' => 'required|exists:users,id'
+        ]);
+
+        $user = User::with('role', 'permissions')->findOrFail($request->id);
+
+        return response()->json($user);
+    }
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $request->id,
+            'is_active' => 'required|boolean',
+            'role_id' => 'required|exists:roles,id',
+        ]);
+
+        $user = User::findOrFail($request->id);
+        $user->update($validated);
+
+        // Update role
+        $user->syncRoles([$request->role]);
+
+        // Update permissions
+        if ($request->has('permissions')) {
+            $user->syncPermissions($request->permissions);
+        } else {
+            $user->syncPermissions([]); // Remove all permissions if none selected
+        }
+
+        return redirect()->route('users.index')
+            ->with('success', 'User updated successfully with role and permissions.');
+    }
     public function login()
     {
         return view('auth.login');
@@ -139,4 +225,13 @@ class AuthController extends Controller
 
     return redirect('/login')->with('error', 'Invalid verification link.');
 }
+private function getLatestRecords($message = 'Roles fetched successfully')
+    {
+       $users = User::latest('created_at')->get();
+        return response()->json([
+            'success' => true,
+            'html' => view('e-com.users.data-table', compact('users'))->render(),
+            'message' => $message,
+        ]);
+    }
 }

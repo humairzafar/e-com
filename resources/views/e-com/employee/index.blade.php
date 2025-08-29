@@ -5,8 +5,9 @@
         <div class="card">
             <div class="card-header" id="abc" >
                 <h3 class="card-title mb-0">Employee</h3>
-
+                    @can('add-employee')
                     <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#js-add-employee-modal">Add Employee</button>
+                    @endcan
             </div>
 
             <div class="card-body">
@@ -81,7 +82,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="employee-dep" class="form-label">Department</label>
-                        <select class="form-control" name="department_id" id="department_id">
+                        <select class="form-control" name="dept_id" id="department_id">
                             <option>Select department</option>
                             @foreach ($departments as $dep)
                                 <option value="{{ $dep->id }}">{{ $dep->name }}</option>

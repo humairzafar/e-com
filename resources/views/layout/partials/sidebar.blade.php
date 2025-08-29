@@ -68,33 +68,71 @@
                                         <li class="nav-item">
                                             <a href="dashboard-crm.html" class="nav-link" data-key="t-crm"> CRM </a>
                                         </li> --}}
+                                        @can('sidebar-user')
+                                        <li class="nav-item">
+                                            <a href="{{ route('users.index') }}" class="nav-link" data-key="t-crm">Users</a>
+                                        </li>
+                                         @endcan
+                                        @can('sidebar-roles')
+                                        <li class="nav-item">
+                                            <a href="{{ route('roles.index') }}" class="nav-link" data-key="t-crm">Roles and Permissions</a>
+                                        </li>
+                                        @endcan
+                                        @can('sidebar-department')
                                         <li class="nav-item">
                                             <a href="{{ route('department.index') }}" class="nav-link" data-key="t-crm"> Departments</a>
                                         </li>
+                                        @endcan
+                                        @can('sidebar-category')
                                         <li class="nav-item">
                                             <a href="{{ route('categories.index') }}" class="nav-link" data-key="t-categories"> Categories </a>
                                         </li>
+                                        @endcan
+                                        @can('sidebar-sub-category')
+                                        <li class="nav-item">
+                                            <a href="{{ route('sub-categories.index') }}" class="nav-link" data-key="t-categories"> Sub-Categories </a>
+                                        </li>
+                                        @endcan
+                                        @can('sidebar-product')
+                                        <li class="nav-item">
+                                            <a href="{{ route('products.index') }}" class="nav-link" data-key="t-categories"> Products</a>
+                                        </li>
+                                        @endcan
+                                        @can('sidebar-designation')
                                         <li class="nav-item">
                                             <a href="{{ route('designation.index') }}" class="nav-link" data-key="t-crm"> Designation</a>
                                         </li>
+                                        @endcan
+                                        @can('sidebar-employee')
                                         <li class="nav-item">
                                             <a href="{{ route('employee.index') }}" class="nav-link" data-key="t-crm"> Employees</a>
                                         </li>
+                                        @endcan
+                                        @can('sidebar-location')
                                          <li class="nav-item">
                                             <a href="{{ route('locations.index') }}" class="nav-link" data-key="t-crm"> Locations</a>
                                         </li>
+                                        @endcan
+                                        @can('sidebar-parts')
                                          <li class="nav-item">
                                             <a href="{{ route('parts.index') }}" class="nav-link" data-key="t-crm"> Parts</a>
                                         </li>
+                                        @endcan
+                                        @can('sidebar-vehicle')
                                          <li class="nav-item">
                                             <a href="{{ route('vehicle.index') }}" class="nav-link" data-key="t-crm"> vehicles</a>
                                         </li>
+                                        @endcan
+                                        @can('sidebar-vehiclecategory')
                                         <li class="nav-item">
                                             <a href="{{ route('VehiclesCategory.index') }}" class="nav-link" data-key="t-crm"> Vehicles Category</a>
                                         </li>
+                                        @endcan
+                                        @can('sidebar-town')
                                         <li class="nav-item">
                                             <a href="{{ route('town.index') }}" class="nav-link" data-key="t-crm"> Towns</a>
                                         </li>
+                                        @endcan
 
                                         {{-- <li class="nav-item">
                                             <a href="index.html" class="nav-link" data-key="t-ecommerce"> Ecommerce </a>

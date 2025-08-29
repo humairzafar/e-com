@@ -5,8 +5,10 @@
         <div class="card">
             <div class="card-header" id="abc" >
                 <h3 class="card-title mb-0">vehiclecategorys</h3>
-
+                    @can('add-vehiclecategory')
                     <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#js-add-vehiclecategory-modal">Add vehiclecategory</button>
+
+                    @endcan
             </div>
 
             <div class="card-body">
@@ -158,31 +160,30 @@ th
         });
     });
     $(document).on('click', '.edit-item-btn', function(e) {
-        e.preventDefault();
-        const recordId = $(this).data('record-id');
+    e.preventDefault();
+    const recordId = $(this).data('record-id');
 
-        $.ajax({
-            url: "{{ route('VehiclesCategory.edit') }}",
-            method: 'POST',
-            data: {
-                _token: "{{ csrf_token() }}",
-                id: recordId
-            },
-            success: function(response) {
-
-                $('#modal-title').text('Edit VehiclesCategory');
-                $('#js-VehiclesCategory-id').val(response.id);
-                $('#vehiclecategory-name').val(response.name);
-                $('#vehiclecategory-slug').val(response.slug);
-                $('#vehiclecategory-status').val(response.is_active);
-                $('#form-submit-btn').text('Update');
-                $('#js-add-vehiclecategory-modal').modal('show');
-            },
-            error: function(xhr) {
-                Swal.fire('Error', 'Failed to load VehiclesCategory data', 'error');
-            }
-        });
+    $.ajax({
+        url: "{{ route('VehiclesCategory.edit') }}",
+        method: 'POST',
+        data: {
+            _token: "{{ csrf_token() }}",
+            id: recordId
+        },
+        success: function(response) {
+            $('#modal-title').text('Edit Vehicles Category');
+            $('#js-vehiclecategory-id').val(response.id); // ✅ fixed ID
+            $('#vehiclecategory-name').val(response.name);
+            $('#vehiclecategory-slug').val(response.slug);
+            $('#vehiclecategory-status').val(response.is_active);
+            $('#form-submit-btn').text('Update');
+            $('#js-add-vehiclecategory-modal').modal('show');
+        },
+        error: function(xhr) {
+            Swal.fire('Error', 'Failed to load VehiclesCategory data', 'error');
+        }
     });
+});
     $(document).on('click', '.remove-item-btn', function(e) {
         e.preventDefault();
         const recordId = $(this).data('record-id');

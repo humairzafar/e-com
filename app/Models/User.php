@@ -6,11 +6,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
 
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
+    use HasRoles;
     use HasFactory, Notifiable;
 
     /**
@@ -22,12 +25,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'phone_number',
-        'joining_date',
-        'bio',
-        'verification_token',
+        // 'phone_number',
+        // 'joining_date',
+        // 'bio',
+        'role_id',
+        // 'verification_token',
         'is_active'
     ];
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -5,8 +5,9 @@
         <div class="card">
             <div class="card-header" id="abc" >
                 <h3 class="card-title mb-0">Departments</h3>
-
+                    @can('add-department')
                     <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#js-add-department-modal">Add Department</button>
+                    @endcan
             </div>
 
             <div class="card-body">

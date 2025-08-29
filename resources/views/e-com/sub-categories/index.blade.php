@@ -5,9 +5,19 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title mb-0">Sub-Categories</h3>
+                @can('add-sub-category')
                 <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#js-add-sub-category-modal">Add Sub-Category</button>
+                @endcan
 
             </div>
+            <div class="card-header">"
+            <a href="{{ route('sub-categories.exportCsv') }}" class="btn btn-success">Export Categories (CSV)</a>
+            <form action="{{ route('sub-categories.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="file" required>
+                <button type="submit" class="btn btn-success">Import Categories</button>
+            </form>
+        </div>
 
             <div class="card-body">
                 <div class="row">
@@ -45,10 +55,6 @@
         </div>
     </div>
 </div>
-
-
-
-
 
 
 <!--modal starts here-->
@@ -109,14 +115,9 @@
   $(document).ready(function() {
     // Initialize DataTable
     $('#js-categories-datatables').DataTable();
-
-
-
     $('#js-add-sub-category-modal').on('shown.bs.modal', function() {
         getAllCategories();
     });
-
-
     $('#js-add-sub-category-modal').on('hidden.bs.modal', function() {
         new FormData($('#sub-category-form')[0].reset());
     });

@@ -3,12 +3,13 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
+
             <div class="card-header">
                 <h3 class="card-title mb-0">Products</h3>
+                @can('create-product')
                 <button type="button"  class="btn btn-primary" id="js-add-product-btn">Add Product</button>
-
+                @endcan
             </div>
-
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-12">

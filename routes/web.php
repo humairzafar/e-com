@@ -31,10 +31,9 @@ Route::controller(CategoryController::class)
         Route::post('/edit', 'edit')->name('edit'); // Changed to POST
         Route::post('/update', 'update')->name('update'); // Changed to POST
         Route::post('/delete', 'destroy')->name('destroy'); // Changed to POST
+        Route::get('/export-csv', 'exportCsv')->name('exportCsv');
+        Route::post('/import', 'import')->name('import');
     });
-    Route::get('/categories/export-csv', [CategoryController::class, 'exportCsv'])
-    ->name('categories.exportCsv');
-    Route::post('/categories/import', [CategoryController::class, 'import'])->name('categories.import');
 
     Route::controller(DepartmentController::class)
     ->prefix('department')
@@ -132,18 +131,15 @@ Route::controller(DesignationController::class)
         Route::post('/delete', 'destroy')->name('destroy'); // Changed to POST
     });
 
-
-Route::controller(SubCategoryController::class)->prefix('sub-categories')->middleware('auth')->name('sub-categories.')->group(function () {
-    Route::get('/', 'index')->name('index');
-});
 Route::controller(SubCategoryController::class)->prefix('sub-categories')->middleware('auth')->name('sub-categories.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');
         Route::post('/edit', 'edit')->name('edit'); // Changed to POST
         Route::post('/update', 'update')->name('update'); // Changed to POST
         Route::post('/delete', 'destroy')->name('destroy'); // Changed to POST
+        Route::get('/export-csv', 'exportCsv')->name('exportCsv');
     });
-
+Route::post('/sub-categories/import', [SubCategoryController::class, 'import'])->name('sub-categories.import');
 
 Route::controller(ProductController::class)->prefix('products')->middleware('auth')->name('products.')->group(function () {
     Route::get('/', 'index')->name('index');

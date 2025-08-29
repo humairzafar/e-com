@@ -9,59 +9,62 @@ class VehiclesCategoryController extends Controller
 {
     public function index()
     {
-        $vehiclecategories= VehiclesCategory::all();
-        return view('e-com.vehiclecategory.index' , compact('vehiclecategories'));
+        $vehiclecategories = VehiclesCategory::all();
+        return view('e-com.vehiclecategory.index', compact('vehiclecategories'));
     }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name',
+            'name' => 'required|string|max:255|unique:vehicles_categories,name',
             'is_active' => 'required|boolean',
-            'slug' => 'required|string|max:255|unique:categories,slug',
+            'slug' => 'required|string|max:255|unique:vehicles_categories,slug',
         ]);
+
         VehiclesCategory::create($validated);
 
-        return $this->getLatestRecords('VehiclesCategory created successfully');
+        return $this->getLatestRecords('Vehicle category created successfully');
     }
+
     public function edit(Request $request)
     {
-        $request->validate(['id' => 'required|exists:categories,id']);
-        $vehiclesCategories = VehiclesCategory::findOrFail($request->id);
+        $request->validate(['id' => 'required|exists:vehicles_categories,id']);
+        $vehiclesCategory = VehiclesCategory::findOrFail($request->id);
 
-        return response()->json($vehiclesCategories);
+        return response()->json($vehiclesCategory);
     }
 
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'id' => 'required|exists:locations,id',
-            'name' => 'required|string|max:255|unique:locations,name,'.$request->id,
+            'id' => 'required|exists:vehicles_categories,id',
+            'name' => 'required|string|max:255|unique:vehicles_categories,name,' . $request->id,
             'is_active' => 'required|boolean',
-            'slug' => 'required|string|max:255|unique:locations,slug,'.$request->id,
+            'slug' => 'required|string|max:255|unique:vehicles_categories,slug,' . $request->id,
         ]);
 
-        $vehiclesCategories = VehiclesCategory::findOrFail($request->id);
-        $vehiclesCategories->update($validated);
+        $vehiclesCategory = VehiclesCategory::findOrFail($request->id);
+        $vehiclesCategory->update($validated);
 
-        return $this->getLatestRecords('vehiclesCategories updated successfully');
-    }
-     public function destroy(Request $request)
-    {
-        $request->validate(['id' => 'required|exists:categories,id']);
-        $vehiclesCategories = VehiclesCategory::findOrFail($request->id);
-        $vehiclesCategories->delete();
-
-        return $this->getLatestRecords('Location deleted successfully');
+        return $this->getLatestRecords('Vehicle category updated successfully');
     }
 
-    private function getLatestRecords($message = 'Employee fetched successfully')
+    public function destroy(Request $request)
     {
-       $vehiclecategories = VehiclesCategory::latest('created_at')->get();
+        $request->validate(['id' => 'required|exists:vehicles_categories,id']);
+        $vehiclesCategory = VehiclesCategory::findOrFail($request->id);
+        $vehiclesCategory->delete();
+
+        return $this->getLatestRecords('Vehicle category deleted successfully');
+    }
+
+    private function getLatestRecords($message = 'Data fetched successfully')
+    {
+        $vehiclecategories = VehiclesCategory::latest('created_at')->get();
         return response()->json([
             'success' => true,
             'html' => view('e-com.vehiclecategory.data-table', compact('vehiclecategories'))->render(),
             'message' => $message,
         ]);
     }
-
 }

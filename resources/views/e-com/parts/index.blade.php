@@ -50,7 +50,9 @@
         <div class="modal-content border-0 overflow-hidden">
             <div class="modal-header p-3">
                 <h4 class="card-title mb-0" id="modal-title">Add part</h4>
+                @can('add-part')
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                @endcan
             </div>
 
             <div class="modal-body">
