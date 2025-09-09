@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         $admin =
             [
-                'email' => 'admin@gmail.com',
+                'email' => 'admin12@gmail.com',
                 'name' => 'Admin',
                 'password' => 'admin',
             ];
@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
 
         $users = [
             'name' => 'User',
-            'email' => 'user@gmail.com',
+            'email' => 'use12r@gmail.com',
             'password' => 'user',
         ];
 

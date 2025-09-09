@@ -29,7 +29,6 @@ class PartsController extends Controller
     {
         $request->validate(['id' => 'required|exists:parts,id']);
         $part = Part::findOrFail($request->id);
-
         return response()->json($part);
     }
 

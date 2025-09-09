@@ -15,15 +15,16 @@ Use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PartsController;
 use App\Http\Controllers\TownController;
 use App\Http\Controllers\VehicleController;
+use App\Http\controllers\BrandController;
 use App\Http\Controllers\VehiclesCategoryController;
+use Spatie\Permission\Contracts\Permission;
 
 Route::get('/', function () {
     return view('dashboard');
 })->middleware('auth')->name('home');
-// Route::get('send-mail', [MailController::class, 'index']);
 Route::controller(CategoryController::class)
     ->prefix('categories')
-    ->middleware('auth')
+    ->middleware('auth' , 'role:User','permission:edit-category|add-category|delete-category|view-category|sidebar-category')
     ->name('categories.')
     ->group(function () {
         Route::get('/', 'index')->name('index');
@@ -37,7 +38,7 @@ Route::controller(CategoryController::class)
 
     Route::controller(DepartmentController::class)
     ->prefix('department')
-    ->middleware('auth')
+    ->middleware('auth', 'role:User','permission:edit-department|add-department|delete-department|view-department|sidebar-department')
     ->name('department.')
     ->group(function () {
         Route::get('/', 'index')->name('index');
@@ -48,7 +49,7 @@ Route::controller(CategoryController::class)
     });
 Route::controller(DesignationController::class)
     ->prefix('designation')
-    ->middleware('auth')
+    ->middleware('auth', 'role:User','permission:edit-designation|add-designation|delete-designation|view-designation|sidebar-designation')
     ->name('designation.')
     ->group(function () {
         Route::get('/', 'index')->name('index');
@@ -63,7 +64,7 @@ Route::controller(DesignationController::class)
     ->name('employee.')
     ->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::post('/', 'store')->name('store');
+        Route::post('/', 'store')->name('store')->middleware('permission:add-employee');
         Route::post('/edit', 'edit')->name('edit'); // Changed to POST
         Route::post('/update', 'update')->name('update'); // Changed to POST
         Route::post('/delete', 'destroy')->name('destroy'); // Changed to POST
@@ -80,17 +81,14 @@ Route::controller(DesignationController::class)
         Route::post('/update', 'update')->name('update'); // Changed to POST
         Route::post('/delete', 'destroy')->name('destroy'); // Changed to POST
     });
-
-
-
     Route::controller(PartsController::class)
     ->prefix('parts')
-    ->middleware('auth')
+    ->middleware('auth', 'role:Admin|editor')
     ->name('parts.')
     ->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->name('store');
-        Route::post('/edit', 'edit')->name('edit'); // Changed to POST
+        Route::post('/edit', 'edit')->name('edit')->middleware('permission:parts.edit'); // Changed to POST
         Route::post('/update', 'update')->name('update'); // Changed to POST
         Route::post('/delete', 'destroy')->name('destroy'); // Changed to POST
     });
@@ -149,6 +147,15 @@ Route::controller(ProductController::class)->prefix('products')->middleware('aut
     Route::post('delete', 'destroy')->name('destroy');
     Route::get('export','export')->name('export');
 
+});
+
+Route::controller(BrandController::class)->prefix('brands')->middleware(('auth'))->name(('brands.'))->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
+    Route::post('/edit', 'edit')->name('edit'); // Changed to POST
+    Route::post('/update', 'update')->name('update'); // Changed to POST
+    Route::post('/delete', 'destroy')->name('destroy'); // Changed to POST
+    // Additional brand routes can be added here
 });
 
 Route::controller(DropdownController::class)->prefix('dropdown')->middleware('auth')->name('dropdown.')->group(function () {

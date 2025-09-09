@@ -5,9 +5,9 @@
         <div class="card">
             <div class="card-header" id="abc" >
                 <h3 class="card-title mb-0">Employee</h3>
-                    @can('add-employee')
+                    {{-- @can('add-employee') --}}
                     <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#js-add-employee-modal">Add Employee</button>
-                    @endcan
+                    {{-- @endcan --}}
             </div>
 
             <div class="card-body">

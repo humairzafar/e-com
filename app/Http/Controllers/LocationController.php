@@ -24,10 +24,10 @@ class LocationController extends Controller
         return $this->getLatestRecords('location created successfully');
     }
 
-    public function edit(Request $request)
+    public function edit(string $id)
     {
-        $request->validate(['id' => 'required|exists:categories,id']);
-        $Location = Location::findOrFail($request->id);
+       // $request->validate(['id' => 'required|exists:categories,id']);
+        $Location = Location::findOrFail($id);
 
         return response()->json($Location);
     }

@@ -140,6 +140,18 @@ class RolesPermissionSeeder extends Seeder
         $userPermissions = [
             'delete-product',
             'view-product',
+            'create-product',
+            // Town
+            'add-town',
+            'edit-town',
+            'delete-town',
+            'view-town',
+            'sidebar-town',
+            'sidebar-employee',
+            'view-employee',
+            'add-employee',
+            // 'edit-employee',
+            // 'delete-employee',
         ];
 
         $commonPermissions = [
@@ -147,7 +159,7 @@ class RolesPermissionSeeder extends Seeder
         ];
 
         // ✅ First create all permissions
-        $allPermissions = array_unique(array_merge($adminPermissions, $userPermissions, $commonPermissions));
+        $allPermissions = array_unique(array_merge($adminPermissions, $userPermissions));
         foreach ($allPermissions as $permission) {
             Permission::firstOrCreate(
                 ['name' => $permission, 'guard_name' => 'web']

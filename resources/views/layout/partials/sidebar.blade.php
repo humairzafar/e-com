@@ -103,11 +103,11 @@
                                             <a href="{{ route('designation.index') }}" class="nav-link" data-key="t-crm"> Designation</a>
                                         </li>
                                         @endcan
-                                        @can('sidebar-employee')
+                                        {{-- @can('sidebar-employee') --}}
                                         <li class="nav-item">
                                             <a href="{{ route('employee.index') }}" class="nav-link" data-key="t-crm"> Employees</a>
                                         </li>
-                                        @endcan
+                                        {{-- @endcan --}}
                                         @can('sidebar-location')
                                          <li class="nav-item">
                                             <a href="{{ route('locations.index') }}" class="nav-link" data-key="t-crm"> Locations</a>
@@ -133,6 +133,9 @@
                                             <a href="{{ route('town.index') }}" class="nav-link" data-key="t-crm"> Towns</a>
                                         </li>
                                         @endcan
+                                         <li class="nav-item">
+                                            <a href="{{ route('brands.index') }}" class="nav-link" data-key="t-crm">Brands</a>
+                                        </li>
 
                                         {{-- <li class="nav-item">
                                             <a href="index.html" class="nav-link" data-key="t-ecommerce"> Ecommerce </a>

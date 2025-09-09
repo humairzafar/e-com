@@ -24,16 +24,16 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a href="" class="dropdown-item"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
-                    @can('edit-part')
+
                     <li><a class="dropdown-item edit-item-btn" data-record-id="{{ $part->id }}"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                    @endcan
-                    @can('delete-part')
+
+
                     <li>
                         <a class="dropdown-item remove-item-btn" data-record-id="{{ $part->id }}">
                             <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
                         </a>
                     </li>
-                    @endcan
+
                 </ul>
             </div>
         </td>
